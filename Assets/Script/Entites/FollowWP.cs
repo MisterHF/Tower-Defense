@@ -8,6 +8,8 @@ public class FollowWP : MonoBehaviour
 
     [SerializeField] private float speed;
 
+
+    public Spawner spawner;
     void Update()
     {
         Move();
@@ -15,16 +17,18 @@ public class FollowWP : MonoBehaviour
 
     private void Move()
     {
-        transform.position = Vector2.MoveTowards(transform.position, waypoint[currentWP].transform.position, speed * Time.deltaTime);
-
-        if (transform.position == waypoint[currentWP].transform.position)
+        if (currentWP < waypoint.Length)
         {
-            currentWP += 1;
+            transform.position = Vector2.MoveTowards(transform.position, waypoint[currentWP].transform.position, speed * Time.deltaTime);
+
+            if (transform.position == waypoint[currentWP].transform.position)
+            {
+                currentWP += 1;
+            }
         }
         if (currentWP == waypoint.Length)
         {
-            
-            
+            spawner.OnReleaseEnemy(this.GetComponent<Enemy>());
         }
     }
     public void SetWaypoints(Transform[] waypointList)

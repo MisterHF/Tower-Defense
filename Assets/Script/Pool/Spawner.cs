@@ -1,6 +1,6 @@
-using NUnit.Framework;
-using System.Collections.Generic;
 using UnityEngine;
+
+
 
 public class Spawner : MonoBehaviour
 {
@@ -11,17 +11,13 @@ public class Spawner : MonoBehaviour
     [SerializeField] private int maxEnemy;
 
     private float enemySpawntTimer;
-    private Pool<Enemy> enemyPool;
+
 
     [SerializeField] private Transform[] waypointList;
 
     private void Awake()
     {
         enemySpawntTimer = 0.0f;
-        enemyPool = new Pool<Enemy>(CreateEnemy, OnGetEnemy, OnReleaseEnemy, maxEnemy);
-        //_projectilePool = new Pool<Projectile>(CreateProjectile, OnGetProjectile, OnReleaseProjectile, 150, 500);
-
-
     }
 
     private Enemy CreateEnemy()
@@ -30,21 +26,21 @@ public class Spawner : MonoBehaviour
         go.GetComponent<FollowWP>().SetWaypoints(waypointList);
 
         Enemy enemy = go.GetComponent<Enemy>();
-
+        enemy.transform.position = transform.position;
+        go.GetComponent<FollowWP>().spawner = this;
         return enemy;
     }
 
-    private void OnGetEnemy(Enemy enemy)
+    public void OnGetEnemy(Enemy enemy)
     {
         enemy.gameObject.SetActive(true);
-        //enemy.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
     }
 
-    private void OnReleaseEnemy(Enemy enemy)
+    public void OnReleaseEnemy(Enemy enemy)
     {
-        enemy.gameObject.SetActive(false);
-
+        //enemy.gameObject.SetActive(false);
+        Destroy(enemy.gameObject);
     }
 
 
@@ -55,11 +51,11 @@ public class Spawner : MonoBehaviour
 
         if (enemySpawntTimer >= spawnRate && currentNbEnemies < maxEnemy)
         {
-            currentNbEnemies ++;
+            currentNbEnemies++;
             enemySpawntTimer = 0.0f;
 
-            Enemy enemy = enemyPool.Get();
-            enemy.transform.position = transform.position;
+            CreateEnemy();
+
 
         }
     }

@@ -1,25 +1,26 @@
 using UnityEngine;
-using UnityEngine.Pool;
 
-public class Enemy : MonoBehaviour, IPoolObject<Enemy>
+public class Enemy : MonoBehaviour
 {
     [SerializeField] private int damage = 1;
 
-    private Pool<Enemy> enemyPool;
-
-    
-    public void SetPool(Pool<Enemy> pool)
-    {
-        enemyPool = pool;
-    }
-
+    [SerializeField] private int health;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Finish"))
         {
-            Stage stage = GetComponent<Stage>();
-            stage.TakeDamage(damage);
-            enemyPool.Release(this);
+            Stage.Instance.TakeDamage(damage);
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+       //Debug.Log(health + "enemy Health");
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

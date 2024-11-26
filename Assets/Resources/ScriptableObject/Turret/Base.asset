@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f692795b26a8048aeef94d95c74740, type: 3}
+  m_Name: Base
+  m_EditorClassIdentifier: 
+  priceTurret: 0
+  shopSpriteTurret: {fileID: 1862951914, guid: 876da6411e51f9544a0605ff66808478, type: 3}
+  attackSpeed: 0
+  range: 0
+  attackDamage: 0
+  rotationSpeed: 0
+  levelTurret:
+  - {fileID: 11400000, guid: d1d771e5c5cc90d43aecc9ee5ebcefed, type: 2}
