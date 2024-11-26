@@ -10,14 +10,14 @@ public class Spawner : MonoBehaviour
     [SerializeField] private int currentNbEnemies;
     [SerializeField] private int maxEnemy;
 
-    private float enemySpawntTimer;
+    private float enemySpawnTimer;
 
 
     [SerializeField] private Transform[] waypointList;
 
     private void Awake()
     {
-        enemySpawntTimer = 0.0f;
+        enemySpawnTimer = 0.0f;
     }
 
     private Enemy CreateEnemy()
@@ -47,12 +47,12 @@ public class Spawner : MonoBehaviour
     private void Update()
     {
 
-        enemySpawntTimer += Time.deltaTime;
+        enemySpawnTimer += Time.deltaTime;
 
-        if (enemySpawntTimer >= spawnRate && currentNbEnemies < maxEnemy)
+        if (enemySpawnTimer >= spawnRate && currentNbEnemies < maxEnemy)
         {
             currentNbEnemies++;
-            enemySpawntTimer = 0.0f;
+            enemySpawnTimer = 0.0f;
 
             CreateEnemy();
 

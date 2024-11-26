@@ -18,4 +18,5 @@ MonoBehaviour:
   range: 3
   attackDamage: 1
   rotationSpeed: 250
-  levelTurret: []
+  levelTurret:
+  - {fileID: 11400000, guid: 61b8a507cfcda76478e58e6789dc8be6, type: 2}

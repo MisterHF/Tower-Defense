@@ -34,7 +34,7 @@ public class TowerBehaviour : MonoBehaviour
 
     private void TowerDetectEnemy()
     {
-        hitColliders = Physics2D.OverlapCircle(transform.position,data.range);
+        hitColliders = Physics2D.OverlapCircle(transform.position, data.range);
         if (hitColliders == null) return;
         enemy = hitColliders.gameObject.GetComponent<Enemy>();
     }
@@ -67,5 +67,11 @@ public class TowerBehaviour : MonoBehaviour
     {
         data = turretData;
         GetComponent<SpriteRenderer>().sprite = data.shopSpriteTurret;
+    }
+    public void SellTurret(TurretData turretData)
+    {
+        data = turretData;
+        GetComponent<SpriteRenderer>().sprite = data.shopSpriteTurret;
+        turretRotation.rotation = default;
     }
 }

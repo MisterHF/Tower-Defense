@@ -48,5 +48,11 @@ public class BuildTurretSystem : MonoBehaviour
     public void UpgradeTurret(int index)
     {
         towerBehaviour.UpgradeTurret(towerBehaviour.data.levelTurret[index]);
+        gameObject.SetActive(false);
+    }
+    public void SellTurret(int index)
+    {
+        towerBehaviour.SellTurret(towerBehaviour.data.levelTurret[index]);
+        gameObject.SetActive(false);
     }
 }

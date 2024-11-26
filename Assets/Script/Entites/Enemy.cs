@@ -1,10 +1,24 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private int damage = 1;
 
-    [SerializeField] private int health;
+    [SerializeField] private float currentHealth;
+    [SerializeField] private float maxHealth;
+
+    [SerializeField] private Transform barHealthPos;
+    [SerializeField] private GameObject healthBarPrefab;
+
+    public EnemyHealthBar healthBar;
+
+    private void Start()
+    {
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Finish"))
@@ -13,12 +27,12 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
-        health -= damage;
-       //Debug.Log(health + "enemy Health");
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
 
-        if (health <= 0)
+        if (currentHealth <= 0)
         {
             Destroy(gameObject);
         }
