@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priceTurret: 0
   shopSpriteTurret: {fileID: 1862951914, guid: 876da6411e51f9544a0605ff66808478, type: 3}
-  attackSpeed: 0
+  fireRate: 0
+  fireCountdown: 0
   range: 0
   attackDamage: 0
   rotationSpeed: 0

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0f692795b26a8048aeef94d95c74740, type: 3}
-  m_Name: SimpleTurret
+  m_Name: LaserTurret
   m_EditorClassIdentifier: 
   priceTurret: 0
-  shopSpriteTurret: {fileID: -743609928, guid: 5da6ca6b3ff2c944eb1644009f7eec08, type: 3}
-  fireRate: 1
-  fireCountdown: 0.52739376
+  shopSpriteTurret: {fileID: 314814612, guid: 5da6ca6b3ff2c944eb1644009f7eec08, type: 3}
+  fireRate: 0
+  fireCountdown: 0
   range: 3
   attackDamage: 1
   rotationSpeed: 250

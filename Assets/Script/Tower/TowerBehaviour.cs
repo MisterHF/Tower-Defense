@@ -19,16 +19,22 @@ public class TowerBehaviour : MonoBehaviour
         }
         else if (enemy != null)
         {
-            if (CheckEnemyIsInRange())
+            if (CheckEnemyIsInRange() )
             {
-                DealDamage();
                 RotateTowardsEnemy();
-                return;
+                if (data.fireCountdown <= 0f)
+                {
+                    DealDamage();
+
+                    data.fireCountdown = 1 / data.fireRate;
+                    return;
+                }
             }
             else
             {
                 enemy = null;
             }
+            data.fireCountdown -= Time.deltaTime;
         }
     }
 
@@ -57,6 +63,7 @@ public class TowerBehaviour : MonoBehaviour
     {
         enemy.TakeDamage(data.attackDamage);
     }
+    
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -67,11 +74,15 @@ public class TowerBehaviour : MonoBehaviour
     {
         data = turretData;
         GetComponent<SpriteRenderer>().sprite = data.shopSpriteTurret;
+        MoneyManager.Instance.RemoveMoney(10);
+
+
     }
     public void SellTurret(TurretData turretData)
     {
         data = turretData;
         GetComponent<SpriteRenderer>().sprite = data.shopSpriteTurret;
+        MoneyManager.Instance.AddMoney(10);
         turretRotation.rotation = default;
     }
 }

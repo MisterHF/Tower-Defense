@@ -7,6 +7,7 @@ public class BuildTurretSystem : MonoBehaviour
     public TurretData turretLoaded { get; set; }
     public static Action<TurretData> OnPlaceTurret;
 
+    [SerializeField] private TurretData baseTurret;
     [SerializeField] private GameObject gameObjectMask;
     [SerializeField] private List<GameObject> button = new();
 
@@ -50,9 +51,9 @@ public class BuildTurretSystem : MonoBehaviour
         towerBehaviour.UpgradeTurret(towerBehaviour.data.levelTurret[index]);
         gameObject.SetActive(false);
     }
-    public void SellTurret(int index)
+    public void SellTurret()
     {
-        towerBehaviour.SellTurret(towerBehaviour.data.levelTurret[index]);
+        towerBehaviour.SellTurret(baseTurret);
         gameObject.SetActive(false);
     }
 }

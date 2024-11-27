@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
@@ -13,10 +13,27 @@ public class Enemy : MonoBehaviour
 
     public EnemyHealthBar healthBar;
 
+    UnityEvent ShowEnemyHealthBar = new();
+
     private void Start()
     {
+        ShowEnemyHealthBar.AddListener(ShowHealthBar);
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        healthBarPrefab.SetActive(false);
+    }
+
+    private void ShowHealthBar()
+    {
+        if (currentHealth == maxHealth)
+        {
+            healthBarPrefab.SetActive(false);
+        }
+        else
+        {
+            healthBarPrefab.SetActive(true);
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -29,8 +46,10 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        ShowEnemyHealthBar.Invoke();
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
+
 
         if (currentHealth <= 0)
         {
