@@ -5,7 +5,6 @@ using UnityEngine;
 public class BuildTurretSystem : MonoBehaviour
 {
     public TurretData turretLoaded { get; set; }
-    public static Action<TurretData> OnPlaceTurret;
 
     [SerializeField] private TurretData baseTurret;
     [SerializeField] private GameObject gameObjectMask;
@@ -20,10 +19,10 @@ public class BuildTurretSystem : MonoBehaviour
     {
         selfTransform = GetComponent<RectTransform>();
     }
-    public void SetupTurretButton(TowerBehaviour towerBehaviour)
+    public void SetupTurretButton(/*TowerBehaviour towerBehaviour*/)
     {
 
-        this.towerBehaviour = towerBehaviour;
+        //this.towerBehaviour = towerBehaviour;
         for (int i = 0; i < button.Count; i++)
         {
             button[i].SetActive(false);
@@ -41,19 +40,22 @@ public class BuildTurretSystem : MonoBehaviour
     {
         gameObjectMask.SetActive(false);
     }
-    public void PlaceTurret()
-    {
-        OnPlaceTurret?.Invoke(turretLoaded);
-    }
 
-    public void UpgradeTurret(int index)
+
+    //public void UpgradeTurret(int index)
+    //{
+    //    towerBehaviour.UpgradeTurret(towerBehaviour.data.levelTurret[index]);
+    //    gameObject.SetActive(false);
+    //}
+    //public void SellTurret()
+    //{
+    //    towerBehaviour.SellTurret(baseTurret);
+    //    gameObject.SetActive(false);
+    //}
+    public void Build(TurretData data)
     {
-        towerBehaviour.UpgradeTurret(towerBehaviour.data.levelTurret[index]);
-        gameObject.SetActive(false);
-    }
-    public void SellTurret()
-    {
-        towerBehaviour.SellTurret(baseTurret);
-        gameObject.SetActive(false);
+        GameObject newTurret = Instantiate(data.prefabTurret);
+        MoneyManager.Instance.RemoveMoney(10);
+        newTurret.transform.position = newWorldObjectPosition;
     }
 }

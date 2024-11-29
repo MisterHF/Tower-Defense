@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopSpriteTurret: {fileID: -743609928, guid: 5da6ca6b3ff2c944eb1644009f7eec08, type: 3}
   fireRate: 1
-  fireCountdown: 0.7084585
+  fireCountdown: 1
   range: 3
-  attackDamage: 10
+  attackDamage: 1
   rotationSpeed: 250
   slowAmount: 0
+  prefabTurret: {fileID: 4845153075527851024, guid: 516309efa03d53a4da40e6f5bcc210de, type: 3}
   levelTurret: []

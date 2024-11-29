@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2423815817959677536}
   - component: {fileID: 7212374830679943292}
   m_Layer: 0
-  m_Name: Base
+  m_Name: TestTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1862951914, guid: 876da6411e51f9544a0605ff66808478, type: 3}
+  m_Sprite: {fileID: 314814612, guid: 5da6ca6b3ff2c944eb1644009f7eec08, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dae61a2747923347ac835687994ff68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 61b8a507cfcda76478e58e6789dc8be6, type: 2}
+  data: {fileID: 11400000, guid: 87b989ff98915e943994acccb8f241ae, type: 2}
   turretRotation: {fileID: 4154769073209240700}
 --- !u!61 &7212374830679943292
 BoxCollider2D:
@@ -142,7 +142,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.4, y: 0.59}
+    oldSize: {x: 0.4, y: 0.77}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

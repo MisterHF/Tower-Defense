@@ -14,6 +14,8 @@ public class TurretData : ScriptableObject
     public float rotationSpeed;
     public float slowAmount;
 
+    public GameObject prefabTurret;
+
 
 
     public List<TurretData> levelTurret = new();

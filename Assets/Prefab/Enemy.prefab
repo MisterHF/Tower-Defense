@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5624321563172832885}
   - component: {fileID: 6786864286136087690}
   - component: {fileID: 6399506494869244211}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoint:
   - {fileID: 0}
-  speed: 4.92
+  speed: 1
   spawner: {fileID: 0}
 --- !u!61 &5624321563172832885
 BoxCollider2D:
@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 9005962098184618828}
   - component: {fileID: 885378086689208204}
   - component: {fileID: 7893501616527949944}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 9150134189407959920}
   - component: {fileID: 8979230989912819891}
   - component: {fileID: 5026322642632109283}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,13 +490,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4573906452250391290, guid: f0f53aa1e2dbd984caa422e95b63e5b7, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5318825191803013836, guid: f0f53aa1e2dbd984caa422e95b63e5b7, type: 3}
       propertyPath: m_Name
       value: HealthBarEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 5318825191803013836, guid: f0f53aa1e2dbd984caa422e95b63e5b7, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318825191803013836, guid: f0f53aa1e2dbd984caa422e95b63e5b7, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5413996956021956016, guid: f0f53aa1e2dbd984caa422e95b63e5b7, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300763777644200181, guid: f0f53aa1e2dbd984caa422e95b63e5b7, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580349387474803828, guid: f0f53aa1e2dbd984caa422e95b63e5b7, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

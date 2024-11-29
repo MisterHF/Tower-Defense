@@ -16,7 +16,6 @@ public class EnvironmentInteraction : MonoBehaviour
     }
     private void Start()
     {
-
         InputAction.started += Interact;
     }
 
@@ -27,17 +26,15 @@ public class EnvironmentInteraction : MonoBehaviour
 
         if (objectHit)
         {
-
+            print("je suis normalement là...");
             wheelChoiceTurret.SetActive(true);
-            wheelChoiceTurret.transform.position = Camera.main.WorldToScreenPoint(objectHit.transform.position);
-            if (objectHit.transform.GetComponent<TowerBehaviour>())
-            {
-                wheelChoiceTurret.GetComponent<BuildTurretSystem>().SetupTurretButton(objectHit.transform.GetComponent<TowerBehaviour>());
-            }
+            wheelChoiceTurret.transform.position = objectHit.transform.position;
+           
             return;
 
         }
-        wheelChoiceTurret.SetActive(false);
+        //wheelChoiceTurret.SetActive(false);
+        print("mais en faite non...");
     }
     private void OnEnable()
     {

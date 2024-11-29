@@ -8,6 +8,8 @@ public class TowerBehaviour : MonoBehaviour
 
     private Collider2D hitColliders;
     private Enemy enemy;
+    [SerializeField] private LayerMask enemylayer;
+
 
     // Update is called once per frame
     void Update()
@@ -19,28 +21,33 @@ public class TowerBehaviour : MonoBehaviour
         }
         else if (enemy != null)
         {
-            if (CheckEnemyIsInRange() )
-            {
-                RotateTowardsEnemy();
-                if (data.fireCountdown <= 0f)
-                {
-                    DealDamage();
-
-                    data.fireCountdown = 1 / data.fireRate;
-                    return;
-                }
-            }
-            else
-            {
-                enemy = null;
-            }
-            data.fireCountdown -= Time.deltaTime;
+            Shoot();
         }
     }
 
+    private void Shoot()
+    {
+        if (CheckEnemyIsInRange())
+        {
+            RotateTowardsEnemy();
+            if (data.fireCountdown <= 0f)
+            {
+                DealDamage();
+
+                data.fireCountdown = 1 / data.fireRate;
+                return;
+            }
+        }
+        else
+        {
+            enemy = null;
+        }
+        data.fireCountdown -= Time.deltaTime;
+    }
     private void TowerDetectEnemy()
     {
-        hitColliders = Physics2D.OverlapCircle(transform.position, data.range);
+        data.fireCountdown = 1;
+        hitColliders = Physics2D.OverlapCircle(transform.position, data.range, enemylayer);
         if (hitColliders == null) return;
         enemy = hitColliders.gameObject.GetComponent<Enemy>();
     }
@@ -70,19 +77,19 @@ public class TowerBehaviour : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, 3);
     }
 
-    public void UpgradeTurret(TurretData turretData)
-    {
-        data = turretData;
-        GetComponent<SpriteRenderer>().sprite = data.shopSpriteTurret;
-        MoneyManager.Instance.RemoveMoney(10);
+    //public void UpgradeTurret(TurretData turretData)
+    //{
+    //    data = turretData;
+    //    GetComponent<SpriteRenderer>().sprite = data.shopSpriteTurret;
+    //    MoneyManager.Instance.RemoveMoney(10);
 
 
-    }
-    public void SellTurret(TurretData turretData)
-    {
-        data = turretData;
-        GetComponent<SpriteRenderer>().sprite = data.shopSpriteTurret;
-        MoneyManager.Instance.AddMoney(10);
-        turretRotation.rotation = default;
-    }
+    //}
+    //public void SellTurret(TurretData turretData)
+    //{
+    //    data = turretData;
+    //    GetComponent<SpriteRenderer>().sprite = data.shopSpriteTurret;
+    //    MoneyManager.Instance.AddMoney(10);
+    //    turretRotation.rotation = default;
+    //}
 }
