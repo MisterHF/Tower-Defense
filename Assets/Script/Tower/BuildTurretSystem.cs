@@ -5,9 +5,11 @@ using UnityEngine;
 public class BuildTurretSystem : MonoBehaviour
 {
     public TurretData turretLoaded { get; set; }
-    public static Action<TurretData> OnPlaceTurret;
 
-    [SerializeField] private TurretData baseTurret;
+    [SerializeField] private GameObject[] towerPrefabs;
+
+    private int selectorTower = 0;
+
     [SerializeField] private GameObject gameObjectMask;
     [SerializeField] private List<GameObject> button = new();
 
@@ -15,9 +17,11 @@ public class BuildTurretSystem : MonoBehaviour
     private Vector3 newWorldObjectPosition;
     private TowerBehaviour towerBehaviour;
 
+    public static BuildTurretSystem instance;
 
     private void Awake()
     {
+        instance = this;
         selfTransform = GetComponent<RectTransform>();
     }
     public void SetupTurretButton(TowerBehaviour towerBehaviour)
@@ -41,11 +45,12 @@ public class BuildTurretSystem : MonoBehaviour
     {
         gameObjectMask.SetActive(false);
     }
-    public void PlaceTurret()
+    public GameObject GetSelectedTower()
     {
-        OnPlaceTurret?.Invoke(turretLoaded);
+        MoneyManager.Instance.RemoveMoney(10);
+        gameObject.SetActive(false);
+        return towerPrefabs[selectorTower];
     }
-
     public void UpgradeTurret(int index)
     {
         towerBehaviour.UpgradeTurret(towerBehaviour.data.levelTurret[index]);
@@ -53,7 +58,7 @@ public class BuildTurretSystem : MonoBehaviour
     }
     public void SellTurret()
     {
-        towerBehaviour.SellTurret(baseTurret);
+        towerBehaviour.SellTurret();
         gameObject.SetActive(false);
     }
 }

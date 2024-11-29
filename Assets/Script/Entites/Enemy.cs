@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float currentHealth;
     [SerializeField] private float maxHealth;
 
+    [SerializeField] private int amountGold;
+
     [SerializeField] private Transform barHealthPos;
     [SerializeField] private GameObject healthBarPrefab;
 
@@ -50,10 +52,10 @@ public class Enemy : MonoBehaviour
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
 
-
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
+            Stage.Instance.AddMoney(amountGold);
         }
     }
 }

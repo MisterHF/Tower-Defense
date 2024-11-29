@@ -196,6 +196,7 @@ MonoBehaviour:
   damage: 1
   currentHealth: 0
   maxHealth: 10
+  amountGold: 10
   barHealthPos: {fileID: 115357970814408462}
   healthBarPrefab: {fileID: 7827920203518761619}
   healthBar: {fileID: 7031165400033827375}

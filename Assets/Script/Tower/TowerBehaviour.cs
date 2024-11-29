@@ -4,13 +4,14 @@ public class TowerBehaviour : MonoBehaviour
 {
     public TurretData data;
 
-    [SerializeField] private Transform turretRotation;
+    [SerializeField] protected Transform turretRotation;
 
-    private Collider2D hitColliders;
-    private Enemy enemy;
+    protected Collider2D hitColliders;
+    protected Enemy enemy;
+    protected Plot plot;
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (enemy == null)
         {
@@ -19,39 +20,43 @@ public class TowerBehaviour : MonoBehaviour
         }
         else if (enemy != null)
         {
-            if (CheckEnemyIsInRange() )
-            {
-                RotateTowardsEnemy();
-                if (data.fireCountdown <= 0f)
-                {
-                    DealDamage();
-
-                    data.fireCountdown = 1 / data.fireRate;
-                    return;
-                }
-            }
-            else
-            {
-                enemy = null;
-            }
-            data.fireCountdown -= Time.deltaTime;
+            Shoot();
         }
     }
 
-    private void TowerDetectEnemy()
+    protected virtual void Shoot()
+    {
+        if (CheckEnemyIsInRange())
+        {
+            RotateTowardsEnemy();
+            if (data.fireCountdown <= 0f)
+            {
+                DealDamage();
+
+                data.fireCountdown = 1 / data.fireRate;
+                return;
+            }
+        }
+        else
+        {
+            enemy = null;
+        }
+        data.fireCountdown -= Time.deltaTime;
+    }
+    protected void TowerDetectEnemy()
     {
         hitColliders = Physics2D.OverlapCircle(transform.position, data.range);
         if (hitColliders == null) return;
         enemy = hitColliders.gameObject.GetComponent<Enemy>();
     }
 
-    private bool CheckEnemyIsInRange()
+    protected bool CheckEnemyIsInRange()
     {
         return Vector3.Distance(enemy.transform.position, transform.position) <= data.range;
     }
 
 
-    private void RotateTowardsEnemy()
+    protected void RotateTowardsEnemy()
     {
         float angle = Mathf.Atan2(enemy.transform.position.y - transform.position.y, enemy.transform.position.x - transform.position.x) * Mathf.Rad2Deg - 90f;
 
@@ -59,12 +64,12 @@ public class TowerBehaviour : MonoBehaviour
         turretRotation.rotation = Quaternion.RotateTowards(turretRotation.rotation, enemyRotation, data.rotationSpeed * Time.deltaTime);
     }
 
-    private void DealDamage()
+    protected void DealDamage()
     {
         enemy.TakeDamage(data.attackDamage);
     }
-    
-    private void OnDrawGizmosSelected()
+
+    protected void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, 3);
@@ -75,13 +80,11 @@ public class TowerBehaviour : MonoBehaviour
         data = turretData;
         GetComponent<SpriteRenderer>().sprite = data.shopSpriteTurret;
         MoneyManager.Instance.RemoveMoney(10);
-
-
     }
-    public void SellTurret(TurretData turretData)
+    public void SellTurret()
     {
-        data = turretData;
-        GetComponent<SpriteRenderer>().sprite = data.shopSpriteTurret;
+        //plot.sr.enabled = true;
+        Destroy(gameObject);
         MoneyManager.Instance.AddMoney(10);
         turretRotation.rotation = default;
     }

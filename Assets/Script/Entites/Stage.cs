@@ -53,6 +53,4 @@ public class Stage : MonoBehaviour
         GameManager.Instance.ONGameFinish.Invoke();
 
     }
-
-
 }
