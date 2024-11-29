@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour
 
     UnityEvent ShowEnemyHealthBar = new();
 
+    public Spawner spawner;
+
     private void Start()
     {
         ShowEnemyHealthBar.AddListener(ShowHealthBar);
@@ -53,7 +55,7 @@ public class Enemy : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            spawner.OnReleaseEnemy(this);
         }
     }
 }

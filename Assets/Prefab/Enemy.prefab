@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoint:
   - {fileID: 0}
-  speed: 1
+  speed: 4.92
   spawner: {fileID: 0}
 --- !u!61 &5624321563172832885
 BoxCollider2D:
@@ -199,6 +199,7 @@ MonoBehaviour:
   barHealthPos: {fileID: 115357970814408462}
   healthBarPrefab: {fileID: 7827920203518761619}
   healthBar: {fileID: 7031165400033827375}
+  spawner: {fileID: 0}
 --- !u!1 &3194546245913536190
 GameObject:
   m_ObjectHideFlags: 0
