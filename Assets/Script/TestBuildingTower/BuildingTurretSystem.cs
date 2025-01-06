@@ -23,11 +23,10 @@ public class BuildingTurretSystem : MonoBehaviour
     //}
     public void Build()
     {
-
-        tower.InitializedDataTurret(prefabTurret.GetComponent<TurretData>());
         GameObject newTurret = Instantiate(prefabTurret);
         //MoneyManager.Instance.RemoveMoney(10);
         newTurret.transform.position = transform.position;
+        //tower.InitializedDataTurret(prefabTurret.GetComponent<TurretData>());
         gameObject.SetActive(false);
     }
 }
