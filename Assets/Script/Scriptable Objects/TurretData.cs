@@ -12,7 +12,6 @@ public class TurretData : ScriptableObject
     public float range;
     public float attackDamage;
     public float rotationSpeed;
-    public float slowAmount;
 
     public GameObject prefabTurret;
 

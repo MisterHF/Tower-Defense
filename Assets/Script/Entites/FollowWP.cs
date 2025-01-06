@@ -6,9 +6,6 @@ public class FollowWP : MonoBehaviour
 
     private int currentWP = 0;
 
-    [SerializeField] private float speed;
-
-
     public Spawner spawner;
     void Update()
     {
@@ -19,7 +16,7 @@ public class FollowWP : MonoBehaviour
     {
         if (currentWP < waypoint.Length)
         {
-            transform.position = Vector2.MoveTowards(transform.position, waypoint[currentWP].transform.position, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, waypoint[currentWP].transform.position, GetComponent<Enemy>().stat.speed * Time.deltaTime);
 
             if (transform.position == waypoint[currentWP].transform.position)
             {

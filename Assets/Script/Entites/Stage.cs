@@ -30,7 +30,6 @@ public class Stage : MonoBehaviour
         UpdateCurrentHealthText();
         UpdateCurrentMoneyText();
     }
-
     public void AddMoney(int amount) 
     {
         currentMoney += amount;

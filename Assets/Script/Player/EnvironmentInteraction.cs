@@ -26,15 +26,14 @@ public class EnvironmentInteraction : MonoBehaviour
 
         if (objectHit)
         {
-            print("je suis normalement là...");
+            wheelChoiceTurret = objectHit.transform.GetChild(0).gameObject;
             wheelChoiceTurret.SetActive(true);
             wheelChoiceTurret.transform.position = objectHit.transform.position;
-           
+
             return;
 
         }
         //wheelChoiceTurret.SetActive(false);
-        print("mais en faite non...");
     }
     private void OnEnable()
     {

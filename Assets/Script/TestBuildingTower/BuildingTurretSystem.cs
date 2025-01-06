@@ -4,13 +4,13 @@ public class BuildingTurretSystem : MonoBehaviour
 {
     public TurretData turretLoaded { get; set; }
 
+    private TowerBehaviour tower;
+
     [SerializeField] private GameObject prefabTurret;
     [SerializeField] private GameObject gameObjectMask;
 
-
     private RectTransform selfTransform;
     private Vector3 newWorldObjectPosition;
-    private TowerBehaviour towerBehaviour;
     public void SetupWheelTurretUI()
     {
         gameObjectMask.SetActive(true);
@@ -23,6 +23,8 @@ public class BuildingTurretSystem : MonoBehaviour
     //}
     public void Build()
     {
+
+        tower.InitializedDataTurret(prefabTurret.GetComponent<TurretData>());
         GameObject newTurret = Instantiate(prefabTurret);
         //MoneyManager.Instance.RemoveMoney(10);
         newTurret.transform.position = transform.position;

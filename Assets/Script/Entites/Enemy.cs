@@ -3,10 +3,7 @@ using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private int damage = 1;
-
-    [SerializeField] private float currentHealth;
-    [SerializeField] private float maxHealth;
+    public enemieStat stat;
 
     [SerializeField] private Transform barHealthPos;
     [SerializeField] private GameObject healthBarPrefab;
@@ -17,17 +14,25 @@ public class Enemy : MonoBehaviour
 
     public Spawner spawner;
 
+    [System.Serializable]
+    public struct enemieStat
+    {
+        public float currentHealth, maxHealth, speed;
+        public int gold, damage;
+    }
+
+
     private void Start()
     {
         ShowEnemyHealthBar.AddListener(ShowHealthBar);
-        currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        stat.currentHealth = stat.maxHealth;
+        healthBar.SetMaxHealth(stat.maxHealth);
         healthBarPrefab.SetActive(false);
     }
 
     private void ShowHealthBar()
     {
-        if (currentHealth == maxHealth)
+        if (stat.currentHealth == stat.maxHealth)
         {
             healthBarPrefab.SetActive(false);
         }
@@ -42,18 +47,23 @@ public class Enemy : MonoBehaviour
     {
         if (collision.CompareTag("Finish"))
         {
-            Stage.Instance.TakeDamage(damage);
+            Stage.Instance.TakeDamage(stat.damage);
         }
+    }
+
+    public void TakeMalusOnStat( enemieStat stat, float percent)
+    {
+        stat.speed /= percent;
     }
 
     public void TakeDamage(float damage)
     {
         ShowEnemyHealthBar.Invoke();
-        currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
+        stat.currentHealth -= damage;
+        healthBar.SetHealth(stat.currentHealth);
 
 
-        if (currentHealth <= 0)
+        if (stat.currentHealth <= 0)
         {
             spawner.OnReleaseEnemy(this);
         }

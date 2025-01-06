@@ -1,14 +1,21 @@
 using UnityEngine;
 
-public class TowerBehaviour : MonoBehaviour
+public abstract class TowerBehaviour : MonoBehaviour
 {
     public TurretData data;
 
     [SerializeField] private Transform turretRotation;
 
     private Collider2D hitColliders;
-    private Enemy enemy;
+    protected Enemy enemy;
     [SerializeField] private LayerMask enemylayer;
+
+
+    public statTurret stat;
+    public struct statTurret
+    {
+        public float fireRate, range, fireCountdown, attackDamage, rotationSpeed;
+    }
 
 
     // Update is called once per frame
@@ -21,29 +28,26 @@ public class TowerBehaviour : MonoBehaviour
         }
         else if (enemy != null)
         {
-            Shoot();
-        }
-    }
-
-    private void Shoot()
-    {
-        if (CheckEnemyIsInRange())
-        {
-            RotateTowardsEnemy();
-            if (data.fireCountdown <= 0f)
+            if (CheckEnemyIsInRange())
             {
-                DealDamage();
-
-                data.fireCountdown = 1 / data.fireRate;
-                return;
+                RotateTowardsEnemy();
+                data.fireCountdown -= Time.deltaTime;
+                if (data.fireCountdown <= 0f)
+                {
+                    Shoot();
+                    data.fireCountdown = data.fireRate;
+                }
+            }
+            else
+            {
+                enemy = null;
+               // data.fireCountdown = data.fireRate;
             }
         }
-        else
-        {
-            enemy = null;
-        }
-        data.fireCountdown -= Time.deltaTime;
     }
+
+    protected abstract void Shoot();
+
     private void TowerDetectEnemy()
     {
         data.fireCountdown = 1;
@@ -66,7 +70,7 @@ public class TowerBehaviour : MonoBehaviour
         turretRotation.rotation = Quaternion.RotateTowards(turretRotation.rotation, enemyRotation, data.rotationSpeed * Time.deltaTime);
     }
 
-    private void DealDamage()
+    protected virtual void DealDamage()
     {
         enemy.TakeDamage(data.attackDamage);
     }
@@ -75,6 +79,15 @@ public class TowerBehaviour : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, 3);
+    }
+
+    public void InitializedDataTurret(TurretData data)
+    {
+        stat.range = data.range;   
+        stat.attackDamage = data.attackDamage;
+        stat.fireRate = data.fireRate;
+        stat.fireCountdown = data.fireCountdown;
+        stat.attackDamage = data.attackDamage;
     }
 
     //public void UpgradeTurret(TurretData turretData)
