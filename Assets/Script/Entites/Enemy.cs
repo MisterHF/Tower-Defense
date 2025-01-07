@@ -1,24 +1,26 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
-    public enemieStat stat;
-
     [SerializeField] private Transform barHealthPos;
     [SerializeField] private GameObject healthBarPrefab;
 
     public EnemyHealthBar healthBar;
+    public enemieStat stat;
+    public Spawner spawner;
 
     UnityEvent ShowEnemyHealthBar = new();
 
-    public Spawner spawner;
+    private Coroutine resetMalus;
 
     [System.Serializable]
     public struct enemieStat
     {
-        public float currentHealth, maxHealth, speed;
+        public float currentHealth, maxHealth, currentSpeed, maxSpeed;
         public int gold, damage;
+        public bool isAttacked;
     }
 
 
@@ -51,9 +53,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeMalusOnStat( enemieStat stat, float percent)
+    public void SpeedMalus(float percent)
     {
-        stat.speed /= percent;
+        stat.currentSpeed = Mathf.Max(0.5f, stat.currentSpeed / percent);
     }
 
     public void TakeDamage(float damage)
@@ -62,10 +64,29 @@ public class Enemy : MonoBehaviour
         stat.currentHealth -= damage;
         healthBar.SetHealth(stat.currentHealth);
 
-
         if (stat.currentHealth <= 0)
         {
             spawner.OnReleaseEnemy(this);
         }
+        else
+        {
+            if (resetMalus != null)
+            {
+                StopCoroutine(resetMalus);
+            }
+            resetMalus = StartCoroutine(RemoveMalusAfterDelay(1f));
+        }
+    }
+
+    private IEnumerator RemoveMalusAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ResetMalus();
+    }
+
+
+    public void ResetMalus()
+    {
+        stat.currentSpeed = stat.maxSpeed;
     }
 }

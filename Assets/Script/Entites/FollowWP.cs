@@ -16,7 +16,7 @@ public class FollowWP : MonoBehaviour
     {
         if (currentWP < waypoint.Length)
         {
-            transform.position = Vector2.MoveTowards(transform.position, waypoint[currentWP].transform.position, GetComponent<Enemy>().stat.speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, waypoint[currentWP].transform.position, GetComponent<Enemy>().stat.currentSpeed * Time.deltaTime);
 
             if (transform.position == waypoint[currentWP].transform.position)
             {

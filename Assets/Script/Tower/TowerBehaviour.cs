@@ -2,16 +2,18 @@ using UnityEngine;
 
 public abstract class TowerBehaviour : MonoBehaviour
 {
-    public TurretData data;
-
+    [SerializeField] private LayerMask enemylayer;
     [SerializeField] private Transform turretRotation;
+    [SerializeField] private float fovRangeTurret;
 
     private Collider2D hitColliders;
+
     protected Enemy enemy;
-    [SerializeField] private LayerMask enemylayer;
 
-
+    public TurretData data;
     public statTurret stat;
+
+    [System.Serializable]
     public struct statTurret
     {
         public float fireRate, range, fireCountdown, attackDamage, rotationSpeed;
@@ -19,8 +21,10 @@ public abstract class TowerBehaviour : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
+        ResetLineRenderer();
+
         if (enemy == null)
         {
             TowerDetectEnemy();
@@ -28,37 +32,51 @@ public abstract class TowerBehaviour : MonoBehaviour
         }
         else if (enemy != null)
         {
+
             if (CheckEnemyIsInRange())
             {
                 RotateTowardsEnemy();
-                data.fireCountdown -= Time.deltaTime;
-                if (data.fireCountdown <= 0f)
+
+                if (CheckEnemyInFOV())
                 {
-                    Shoot();
-                    data.fireCountdown = data.fireRate;
+                    AttackRenderer();
+                    stat.fireCountdown -= Time.deltaTime;
+                    if (stat.fireCountdown <= 0f)
+                    {
+                        Shoot();
+                        stat.fireCountdown = stat.fireRate;
+                    }
                 }
             }
             else
             {
                 enemy = null;
-               // data.fireCountdown = data.fireRate;
+                stat.fireCountdown = stat.fireRate;
             }
         }
     }
-
+    protected virtual void AttackRenderer() { }
+    protected virtual void ResetLineRenderer() { }
     protected abstract void Shoot();
 
     private void TowerDetectEnemy()
     {
-        data.fireCountdown = 1;
-        hitColliders = Physics2D.OverlapCircle(transform.position, data.range, enemylayer);
+        stat.fireCountdown = stat.fireRate;
+        hitColliders = Physics2D.OverlapCircle(transform.position, stat.range, enemylayer);
         if (hitColliders == null) return;
         enemy = hitColliders.gameObject.GetComponent<Enemy>();
     }
 
     private bool CheckEnemyIsInRange()
     {
-        return Vector3.Distance(enemy.transform.position, transform.position) <= data.range;
+        return Vector3.Distance(enemy.transform.position, transform.position) <= stat.range;
+    }
+
+    private bool CheckEnemyInFOV()
+    {
+        Vector2 dir = enemy.transform.position - transform.position;
+        float dot = Vector2.Dot(transform.up, dir);
+        return dot > fovRangeTurret;
     }
 
 
@@ -67,14 +85,14 @@ public abstract class TowerBehaviour : MonoBehaviour
         float angle = Mathf.Atan2(enemy.transform.position.y - transform.position.y, enemy.transform.position.x - transform.position.x) * Mathf.Rad2Deg - 90f;
 
         Quaternion enemyRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
-        turretRotation.rotation = Quaternion.RotateTowards(turretRotation.rotation, enemyRotation, data.rotationSpeed * Time.deltaTime);
+        turretRotation.rotation = Quaternion.RotateTowards(turretRotation.rotation, enemyRotation, stat.rotationSpeed * Time.deltaTime);
     }
 
     protected virtual void DealDamage()
     {
-        enemy.TakeDamage(data.attackDamage);
+        enemy.TakeDamage(stat.attackDamage);
     }
-    
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -83,11 +101,11 @@ public abstract class TowerBehaviour : MonoBehaviour
 
     public void InitializedDataTurret(TurretData data)
     {
-        stat.range = data.range;   
+        stat.range = data.range;
         stat.attackDamage = data.attackDamage;
         stat.fireRate = data.fireRate;
         stat.fireCountdown = data.fireCountdown;
-        stat.attackDamage = data.attackDamage;
+        stat.rotationSpeed = data.rotationSpeed;
     }
 
     //public void UpgradeTurret(TurretData turretData)
