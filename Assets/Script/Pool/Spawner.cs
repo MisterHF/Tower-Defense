@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    // faire une list de prefab d'ennemies pour en avoir plusieurs
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform[] waypointList;
 
@@ -45,6 +46,7 @@ public class Spawner : MonoBehaviour
         {
             enemySpawnTimer = 0.0f;
 
+            //faire un random ici entre plusieurs enemies avant l'instantiation
             CreateEnemy();
         }
         if (enemiesSpawnedInWave >= enemiesPerWave && enemiesSpawnedInWave >= 0)

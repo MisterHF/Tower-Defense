@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     UnityEvent ShowEnemyHealthBar = new();
 
     private Coroutine resetMalus;
+    private MoneyManager moneyManager;
 
     [System.Serializable]
     public struct enemieStat
@@ -66,6 +67,7 @@ public class Enemy : MonoBehaviour
 
         if (stat.currentHealth <= 0)
         {
+            MoneyManager.Instance.AddMoney(stat.gold);
             spawner.OnReleaseEnemy(this);
         }
         else

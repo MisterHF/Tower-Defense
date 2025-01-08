@@ -25,7 +25,7 @@ public class BuildingTurretSystem : MonoBehaviour
     {
 
         GameObject newTurret = Instantiate(data.prefabTurret);
-        //MoneyManager.Instance.RemoveMoney(10);
+        MoneyManager.Instance.RemoveMoney(10);
 
         tower = newTurret.GetComponent<TowerBehaviour>(); ;
         newTurret.transform.position = transform.position;

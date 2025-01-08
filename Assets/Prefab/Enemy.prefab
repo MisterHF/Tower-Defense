@@ -192,16 +192,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e2f0eac5d7e38a4dbaa1b0d1005c953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  barHealthPos: {fileID: 115357970814408462}
+  healthBarPrefab: {fileID: 7827920203518761619}
+  healthBar: {fileID: 7031165400033827375}
   stat:
     currentHealth: 10
     maxHealth: 10
     currentSpeed: 1
     maxSpeed: 1
-    gold: 0
+    gold: 5
     damage: 1
-  barHealthPos: {fileID: 115357970814408462}
-  healthBarPrefab: {fileID: 7827920203518761619}
-  healthBar: {fileID: 7031165400033827375}
+    isAttacked: 0
   spawner: {fileID: 0}
 --- !u!1 &6833580793969901575
 GameObject:

@@ -16,7 +16,8 @@ public abstract class TowerBehaviour : MonoBehaviour
     [System.Serializable]
     public struct statTurret
     {
-        public float fireRate, range, fireCountdown, attackDamage, rotationSpeed;
+        public float fireRate, range, fireCountdown, attackDamage, rotationSpeed, debuffEffectAmount;
+        public int purchaseValue, sellingValue;
     }
 
 
@@ -106,6 +107,9 @@ public abstract class TowerBehaviour : MonoBehaviour
         stat.fireRate = data.fireRate;
         stat.fireCountdown = data.fireCountdown;
         stat.rotationSpeed = data.rotationSpeed;
+        stat.debuffEffectAmount = data.debuffEffectAmount;
+        stat.purchaseValue = data.purchaseValue;
+        stat.sellingValue = data.sellingValue;
     }
 
     //public void UpgradeTurret(TurretData turretData)
@@ -116,11 +120,9 @@ public abstract class TowerBehaviour : MonoBehaviour
 
 
     //}
-    //public void SellTurret(TurretData turretData)
+    //public void SellTurret()
     //{
-    //    data = turretData;
-    //    GetComponent<SpriteRenderer>().sprite = data.shopSpriteTurret;
-    //    MoneyManager.Instance.AddMoney(10);
+    //    MoneyManager.Instance.AddMoney(stat.sellingValue);
     //    turretRotation.rotation = default;
     //}
 }

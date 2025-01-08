@@ -83,7 +83,7 @@ public class BoidSystem2 : MonoBehaviour
                 Vector3 direction = b.velocity;
                 float distance = Vector3.Distance(position, b.position);
                 alignement += Vector3.ClampMagnitude(direction / Mathf.Max(distance, 0.01f), 1);
-                
+
 
                 //avoidance
                 direction = position - b.position;
