@@ -74,7 +74,7 @@ public class Enemy : MonoBehaviour
             {
                 StopCoroutine(resetMalus);
             }
-            resetMalus = StartCoroutine(RemoveMalusAfterDelay(1f));
+            resetMalus = StartCoroutine(RemoveMalusAfterDelay(0.5f));
         }
     }
 
