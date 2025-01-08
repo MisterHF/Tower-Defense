@@ -1,48 +1,79 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
+
 namespace Menu
 {
     public class Settings : MonoBehaviour
     {
-        [SerializeField] private TMP_Dropdown _graphicsDropdown;
-        [SerializeField] private Slider _masterVol;
-        [SerializeField] private Slider _musicVol;
-        [SerializeField] private Slider _sfxVol;
-        [SerializeField] private AudioMixer _mainAudioMixer;
-        [SerializeField] private GameObject _panelSettings;
+        [SerializeField] private TMP_Dropdown resolutionDropdown;
+        [SerializeField] private Slider masterVol;
+        [SerializeField] private Slider musicVol;
+        [SerializeField] private Slider sfxVol;
+        [SerializeField] private AudioMixer mainAudioMixer;
+        [SerializeField] private GameObject panelSettings;
+        [SerializeField] private Toggle fullscreenToggle;
+
+        private Resolution[] allResolutions;
+        private bool isFullscreen;
+        private int selectResolution;
+
+        private List<Resolution> selectedResolutionList = new();
 
         private void Start()
         {
-            Assert.IsNotNull(_graphicsDropdown, "graphics dropdown is null in Settings");
-            Assert.IsNotNull(_masterVol, "master volume slider is null in Settings");
-            Assert.IsNotNull(_musicVol, "music volume slider is null in Settings");
-            Assert.IsNotNull(_sfxVol, "sfx volume slider is null in Settings");
-            Assert.IsNotNull(_mainAudioMixer, "main audio mixer is null in Settings");
-            Assert.IsNotNull(_panelSettings, "panel settings is null in Settings");
+            Assert.IsNotNull(resolutionDropdown, "graphics dropdown is null in Settings");
+            Assert.IsNotNull(masterVol, "master volume slider is null in Settings");
+            Assert.IsNotNull(musicVol, "music volume slider is null in Settings");
+            Assert.IsNotNull(sfxVol, "sfx volume slider is null in Settings");
+            Assert.IsNotNull(mainAudioMixer, "main audio mixer is null in Settings");
+            Assert.IsNotNull(panelSettings, "panel settings is null in Settings");
+
+            isFullscreen = true;
+            allResolutions = Screen.resolutions;
+
+            List<string> resolutionStringList = new List<string>();
+            string newRes;
+            foreach (Resolution resolution in allResolutions) 
+            { 
+                newRes = resolution.width.ToString() + " x " + resolution.height.ToString();
+                if (!resolutionStringList.Contains(newRes))
+                {
+                    resolutionStringList.Add(newRes);
+                    selectedResolutionList.Add(resolution);
+                }
+            }
+            resolutionDropdown.AddOptions(resolutionStringList);
         }
 
-        public void ChangeGraphicsQuality()
+        public void ChangeResolution()
         {
-            QualitySettings.SetQualityLevel(_graphicsDropdown.value);
+            selectResolution = resolutionDropdown.value;
+            Screen.SetResolution(selectedResolutionList[selectResolution].width, selectedResolutionList[selectResolution].height, isFullscreen);
+        }
+        public void ChangeFullsreen()
+        {
+            isFullscreen = fullscreenToggle.isOn;
+            Screen.SetResolution(selectedResolutionList[selectResolution].width, selectedResolutionList[selectResolution].height, isFullscreen);
         }
 
         public void ChangeMasterVolume()
         {
-            _mainAudioMixer.SetFloat("Master", Mathf.Log10(_masterVol.value) * 20);
+            mainAudioMixer.SetFloat("Master", Mathf.Log10(masterVol.value) * 20);
         }
 
         public void ChangeMusicVolume()
         {
-            _mainAudioMixer.SetFloat("Music", Mathf.Log10(_musicVol.value) * 20);
+            mainAudioMixer.SetFloat("Music", Mathf.Log10(musicVol.value) * 20);
         }
 
         public void ChangeSfxVolume()
         {
-            _mainAudioMixer.SetFloat("SFX", Mathf.Log10(_sfxVol.value) * 20);
+            mainAudioMixer.SetFloat("SFX", Mathf.Log10(sfxVol.value) * 20);
         }
 
         public void ClosePanel()
