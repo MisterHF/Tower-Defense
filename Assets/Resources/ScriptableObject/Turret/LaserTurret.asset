@@ -19,5 +19,9 @@ MonoBehaviour:
   attackDamage: 0.1
   rotationSpeed: 250
   debuffEffectAmount: 2
-  prefabTurret: {fileID: 4845153075527851024, guid: 587bc95e4e38efe4b9333b1983316513, type: 3}
+  purchaseValue: 10
+  sellingValue: 5
+  lvlUpTurretValue: 10
+  lvlTurret: 0
+  prefabTurret: {fileID: 8679717718701110994, guid: 0e77c56ec5b938749af04ed2616497eb, type: 3}
   levelTurret: []

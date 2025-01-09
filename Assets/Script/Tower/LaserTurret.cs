@@ -5,6 +5,7 @@ public class LaserTurret : TowerBehaviour
     private LineRenderer lineRenderer;
 
     [SerializeField] private Transform turretFirePoint;
+   
 
     private void Start()
     {

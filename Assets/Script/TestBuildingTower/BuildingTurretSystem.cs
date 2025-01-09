@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BuildingTurretSystem : MonoBehaviour
@@ -5,12 +6,15 @@ public class BuildingTurretSystem : MonoBehaviour
     public TurretData turretLoaded { get; set; }
 
     private TowerBehaviour tower;
+    private ManageBuiltUpTurrets manager;
 
     [SerializeField] private GameObject prefabTurret;
     [SerializeField] private GameObject gameObjectMask;
 
     private RectTransform selfTransform;
     private Vector3 newWorldObjectPosition;
+
+
     public void SetupWheelTurretUI()
     {
         gameObjectMask.SetActive(true);
@@ -25,11 +29,14 @@ public class BuildingTurretSystem : MonoBehaviour
     {
 
         GameObject newTurret = Instantiate(data.prefabTurret);
-        MoneyManager.Instance.RemoveMoney(10);
+        MoneyManager.Instance.RemoveMoney(data.purchaseValue);
 
-        tower = newTurret.GetComponent<TowerBehaviour>(); ;
+        tower = newTurret.GetComponentInChildren<TowerBehaviour>();
         newTurret.transform.position = transform.position;
         gameObject.SetActive(false);
         tower.InitializedDataTurret(data);
+
+        manager = newTurret.GetComponent<ManageBuiltUpTurrets>();
+        manager.baseTurret = this.gameObject;
     }
 }

@@ -15,6 +15,8 @@ public class TurretData : ScriptableObject
     public float debuffEffectAmount;
     public int purchaseValue;
     public int sellingValue;
+    public int lvlUpTurretValue;
+    public int lvlTurret;
 
     public GameObject prefabTurret;
 

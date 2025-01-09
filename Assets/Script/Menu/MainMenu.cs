@@ -8,6 +8,7 @@ namespace Menu
         public void Play()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            EventManager.instance.onCrossfadeTransition.Invoke();
         }
 
         public void Quit()

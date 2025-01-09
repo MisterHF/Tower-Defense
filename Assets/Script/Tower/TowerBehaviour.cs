@@ -17,7 +17,7 @@ public abstract class TowerBehaviour : MonoBehaviour
     public struct statTurret
     {
         public float fireRate, range, fireCountdown, attackDamage, rotationSpeed, debuffEffectAmount;
-        public int purchaseValue, sellingValue;
+        public int purchaseValue, sellingValue, lvlTurret, lvlUpTurretValue;
     }
 
 
@@ -110,6 +110,8 @@ public abstract class TowerBehaviour : MonoBehaviour
         stat.debuffEffectAmount = data.debuffEffectAmount;
         stat.purchaseValue = data.purchaseValue;
         stat.sellingValue = data.sellingValue;
+        stat.lvlTurret = data.lvlTurret;
+        stat.lvlUpTurretValue = data.lvlUpTurretValue;
     }
 
     //public void UpgradeTurret(TurretData turretData)
