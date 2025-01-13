@@ -17,6 +17,7 @@ public class Spawner : MonoBehaviour
     private int enemiesSpawnedInWave = 0;
     private float enemySpawnTimer = 0.0f;
     private float waveCooldownTimer = 0.0f;
+    private int ennemiesMaxInLevel;
 
     private bool isWaveActive = true;
 
@@ -24,7 +25,11 @@ public class Spawner : MonoBehaviour
     {
         enemySpawnTimer = 0.0f;
         waveCooldownTimer = 0.0f;
+
+        ennemiesMaxInLevel = enemiesPerWave; // wave 1
+        ennemiesMaxInLevel +=ennemiesMaxInLevel + 2; //wave 2
     }
+
 
     private void Update()
     {
@@ -40,8 +45,9 @@ public class Spawner : MonoBehaviour
 
     private void SpawnEnemies()
     {
+        
         enemySpawnTimer += Time.deltaTime;
-
+        //Debug.Log($" enemiesSpawnedInWave : {enemiesSpawnedInWave} and enemiesPerWave is {enemiesPerWave}");
         if (enemySpawnTimer >= spawnRate && enemiesSpawnedInWave < enemiesPerWave)
         {
             enemySpawnTimer = 0.0f;
@@ -72,14 +78,13 @@ public class Spawner : MonoBehaviour
         {
             currentWave++;
             enemiesPerWave += waveIncrement;
-            ennemiesDeath = 0;
-            enemiesSpawnedInWave = 0;   
+            enemiesSpawnedInWave = 0;
             isWaveActive = true;
         }
-        else
-        {
-            this.enabled = false;
-        }
+        //else
+        //{
+        //    this.enabled = false;
+        //}
     }
 
     private void CreateEnemy()
@@ -97,12 +102,18 @@ public class Spawner : MonoBehaviour
 
     public void OnReleaseEnemy(Enemy enemy)
     {
+        //Debug.Log($" ennemis dead : {ennemiesDeath} and ennemiPerWave is {ennemiesMaxInLevel}");
         if(ennemiesDeath >= enemiesPerWave)
         {
             StartNewWave();
         }
-        Destroy(enemy.gameObject);
         ennemiesDeath++;
+        Destroy(enemy.gameObject);
+
+        if (currentWave == maxWave && ennemiesDeath >= ennemiesMaxInLevel)
+        {
+            EventManager.instance.OnGameWin.Invoke();
+        }
     }
 }
 

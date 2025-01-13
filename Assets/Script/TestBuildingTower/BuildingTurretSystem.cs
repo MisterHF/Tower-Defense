@@ -21,10 +21,7 @@ public class BuildingTurretSystem : MonoBehaviour
         RectTransformUtility.ScreenPointToWorldPointInRectangle(selfTransform, transform.position, Camera.main, out newWorldObjectPosition);
         gameObjectMask.transform.position = newWorldObjectPosition;
     }
-    //private void OnDisable()
-    //{
-    //    gameObjectMask.SetActive(false);
-    //}
+
     public void Build(TurretData data)
     {
 

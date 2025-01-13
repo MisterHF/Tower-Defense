@@ -44,9 +44,3 @@ public class ManageBuiltUpTurrets : MonoBehaviour
     }
 
 }
-
-    // fonction pour upgrade tower avec 3 niveaux d amelio
-
-    // fonction pour downgrade une tour amelio
-
-    // fonction pour vendre

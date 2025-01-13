@@ -198,7 +198,7 @@ MonoBehaviour:
   stat:
     currentHealth: 10
     maxHealth: 10
-    currentSpeed: 1
+    currentSpeed: 2
     maxSpeed: 1
     gold: 5
     damage: 1

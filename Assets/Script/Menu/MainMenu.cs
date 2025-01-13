@@ -15,5 +15,11 @@ namespace Menu
         {
             Application.Quit();
         }
+
+        public void ReturnMainMenu()
+        {
+            SceneManager.LoadScene("MainMenu");
+            EventManager.instance.onCrossfadeTransition.Invoke();
+        }
     }
 }

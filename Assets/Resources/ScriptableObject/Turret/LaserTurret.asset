@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: LaserTurret
   m_EditorClassIdentifier: 
   shopSpriteTurret: {fileID: 314814612, guid: 5da6ca6b3ff2c944eb1644009f7eec08, type: 3}
-  fireRate: 0.1
+  fireRate: 0.5
   fireCountdown: 1
   range: 3
-  attackDamage: 0.1
+  attackDamage: 1
   rotationSpeed: 250
   debuffEffectAmount: 2
   purchaseValue: 10

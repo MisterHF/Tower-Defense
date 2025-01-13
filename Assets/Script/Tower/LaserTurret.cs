@@ -28,6 +28,7 @@ public class LaserTurret : TowerBehaviour
     {
         enemy.SpeedMalus(data.debuffEffectAmount);
         DealDamage();
+        print("laser tower shooted");
         return;
     }
     protected override void ResetLineRenderer()

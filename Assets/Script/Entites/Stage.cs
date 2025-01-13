@@ -49,7 +49,7 @@ public class Stage : MonoBehaviour
         health -= damage;
         Debug.Log(health);
         UpdateTextHealth.Invoke();
-        GameManager.Instance.ONGameFinish.Invoke();
+        EventManager.instance.OnGameLosed.Invoke();
 
     }
 

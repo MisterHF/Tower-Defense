@@ -17,6 +17,9 @@ public class EventManager : MonoBehaviour
     public static EventManager instance { get; private set; }
     public UnityEvent onCrossfadeTransition { get; private set; } = new();
 
+    public UnityEvent OnGameLosed { get; private set; } = new();
+    public UnityEvent OnGameWin { get; private set; } = new();
+
     private void Awake()
     {
         if (instance == null)

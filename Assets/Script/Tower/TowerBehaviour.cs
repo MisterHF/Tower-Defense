@@ -44,8 +44,8 @@ public abstract class TowerBehaviour : MonoBehaviour
                     stat.fireCountdown -= Time.deltaTime;
                     if (stat.fireCountdown <= 0f)
                     {
-                        Shoot();
                         stat.fireCountdown = stat.fireRate;
+                        Shoot();
                     }
                 }
             }
@@ -113,18 +113,4 @@ public abstract class TowerBehaviour : MonoBehaviour
         stat.lvlTurret = data.lvlTurret;
         stat.lvlUpTurretValue = data.lvlUpTurretValue;
     }
-
-    //public void UpgradeTurret(TurretData turretData)
-    //{
-    //    data = turretData;
-    //    GetComponent<SpriteRenderer>().sprite = data.shopSpriteTurret;
-    //    MoneyManager.Instance.RemoveMoney(10);
-
-
-    //}
-    //public void SellTurret()
-    //{
-    //    MoneyManager.Instance.AddMoney(stat.sellingValue);
-    //    turretRotation.rotation = default;
-    //}
 }

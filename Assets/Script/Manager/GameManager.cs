@@ -1,11 +1,13 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public UnityEvent ONGameFinish = new();
+    private bool GameIsOver;
+
+    [SerializeField] private GameObject gameOverUI;         // canva lose
+    [SerializeField] private GameObject completeLevelUI;    // canva win
 
     private void Awake()
     {
@@ -13,14 +15,31 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        ONGameFinish.AddListener(IsAlive);
+        GameIsOver = false;
+        EventManager.instance.OnGameLosed.AddListener(IsAlive);
+        EventManager.instance.OnGameWin.AddListener(WinLevel);
     }
 
     private void IsAlive()
     {
+        if (GameIsOver)
+            return;
+
         if (Stage.Instance.health <= 0)
         {
-            print("load end scene");
+            EndGame();
         }
     }
+    void EndGame()
+    {
+        GameIsOver = true;
+        gameOverUI.SetActive(true);
+    }
+
+    public void WinLevel()
+    {
+        GameIsOver = true;
+        completeLevelUI.SetActive(true);
+    }
+
 }
