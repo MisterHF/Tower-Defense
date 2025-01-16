@@ -30,7 +30,7 @@ public class Stage : MonoBehaviour
         UpdateCurrentHealthText();
         UpdateCurrentMoneyText();
     }
-    public void AddMoney(int amount) 
+    public void ManagementMoney(int amount) 
     {
         currentMoney += amount;
         UpdateTextMoney.Invoke();
@@ -47,11 +47,7 @@ public class Stage : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        Debug.Log(health);
         UpdateTextHealth.Invoke();
         EventManager.instance.OnGameLosed.Invoke();
-
     }
-
-
 }

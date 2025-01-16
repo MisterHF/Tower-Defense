@@ -42,5 +42,4 @@ public class ManageBuiltUpTurrets : MonoBehaviour
             buttonUpgrade.GetComponent<Image>().color = Color.red;
         }
     }
-
 }

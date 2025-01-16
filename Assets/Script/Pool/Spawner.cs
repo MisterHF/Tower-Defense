@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    // faire une list de prefab d'ennemies pour en avoir plusieurs
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject[] enemyPrefab;
     [SerializeField] private Transform[] waypointList;
 
     [SerializeField, Min(0.0f)] private float spawnRate = 1.0f;
@@ -26,8 +25,7 @@ public class Spawner : MonoBehaviour
         enemySpawnTimer = 0.0f;
         waveCooldownTimer = 0.0f;
 
-        ennemiesMaxInLevel = enemiesPerWave; // wave 1
-        ennemiesMaxInLevel +=ennemiesMaxInLevel + 2; //wave 2
+        ennemiesMaxInLevel = enemiesPerWave; 
     }
 
 
@@ -47,15 +45,13 @@ public class Spawner : MonoBehaviour
     {
         
         enemySpawnTimer += Time.deltaTime;
-        //Debug.Log($" enemiesSpawnedInWave : {enemiesSpawnedInWave} and enemiesPerWave is {enemiesPerWave}");
+      
         if (enemySpawnTimer >= spawnRate && enemiesSpawnedInWave < enemiesPerWave)
         {
             enemySpawnTimer = 0.0f;
-
-            //faire un random ici entre plusieurs enemies avant l'instantiation
             CreateEnemy();
         }
-        if (enemiesSpawnedInWave >= enemiesPerWave && enemiesSpawnedInWave >= 0)
+        if (enemiesSpawnedInWave >= enemiesPerWave)
         {
             isWaveActive = false;
             waveCooldownTimer = 0.0f;
@@ -80,16 +76,14 @@ public class Spawner : MonoBehaviour
             enemiesPerWave += waveIncrement;
             enemiesSpawnedInWave = 0;
             isWaveActive = true;
+            ennemiesMaxInLevel += enemiesPerWave;
         }
-        //else
-        //{
-        //    this.enabled = false;
-        //}
     }
 
     private void CreateEnemy()
     {
-        GameObject go = Instantiate(enemyPrefab);
+        GameObject enemiesPrefab = enemyPrefab[Random.Range(0, enemyPrefab.Length)];
+        GameObject go = Instantiate(enemiesPrefab);
         go.GetComponent<FollowWP>().SetWaypoints(waypointList);
         go.transform.position = transform.position;
         go.GetComponent<FollowWP>().spawner = this;
@@ -102,17 +96,17 @@ public class Spawner : MonoBehaviour
 
     public void OnReleaseEnemy(Enemy enemy)
     {
-        //Debug.Log($" ennemis dead : {ennemiesDeath} and ennemiPerWave is {ennemiesMaxInLevel}");
-        if(ennemiesDeath >= enemiesPerWave)
-        {
-            StartNewWave();
-        }
         ennemiesDeath++;
         Destroy(enemy.gameObject);
-
-        if (currentWave == maxWave && ennemiesDeath >= ennemiesMaxInLevel)
+        if (ennemiesDeath >= ennemiesMaxInLevel && currentWave == maxWave)
         {
             EventManager.instance.OnGameWin.Invoke();
+            return;
+        }
+
+        if(ennemiesDeath >= enemiesPerWave * currentWave)
+        {
+            StartNewWave();
         }
     }
 }

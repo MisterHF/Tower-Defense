@@ -21,7 +21,7 @@ MonoBehaviour:
   debuffEffectAmount: 0
   purchaseValue: 10
   sellingValue: 5
-  lvlUpTurretValue: 0
+  lvlUpTurretValue: 10
   lvlTurret: 0
   prefabTurret: {fileID: 8679717718701110994, guid: 37d0d3458759d1349b21f01597ade871, type: 3}
   levelTurret: []

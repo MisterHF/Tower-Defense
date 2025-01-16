@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6786864286136087690}
   - component: {fileID: 6399506494869244211}
   m_Layer: 7
-  m_Name: Enemy
+  m_Name: Tank
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 1299733353, guid: e55c1dee8c6566b418f7ce431e1fc6c8, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6415094, g: 0.04236374, b: 0.04236374, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -196,11 +196,11 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 7827920203518761619}
   healthBar: {fileID: 7031165400033827375}
   stat:
-    currentHealth: 10
-    maxHealth: 10
-    currentSpeed: 3
-    maxSpeed: 3
-    gold: 5
+    currentHealth: 50
+    maxHealth: 50
+    currentSpeed: 1
+    maxSpeed: 1
+    gold: 10
     damage: 1
     isAttacked: 0
   spawner: {fileID: 0}

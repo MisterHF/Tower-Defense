@@ -14,11 +14,11 @@ public class MoneyManager : MonoBehaviour
     }
     public void AddMoney(int amount)
     {
-        Stage.Instance.AddMoney(amount);
+        Stage.Instance.ManagementMoney(amount);
     }
 
     public void RemoveMoney(int amount)
     {
-        Stage.Instance.AddMoney(-amount);
+        Stage.Instance.ManagementMoney(-amount);
     }
 }
